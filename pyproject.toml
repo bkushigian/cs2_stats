@@ -1,0 +1,23 @@
+[project]
+name = "cs2_stats"
+version = "0.0.0.dev0"
+authors = [{ name = "Ben Kushigian", email = "bkushigian@gmail.com" }]
+description = "CS2 Stats Utility"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "demoparser2>=0.31.0",
+]
+
+[project.urls]
+Issues = "https://github.com/bkushigian/cs2_stats/issues"
+Homepage = "https://github.com/bkushigian/cs2_stats"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
