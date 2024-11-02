@@ -38,9 +38,22 @@ def main():
         "--stop_recording", default=None, action="Key to stop recording"
     )
     args = parser.parse_args()
+
+    start_recording = args.start_recording
+    if start_recording:
+        start_recording = [key.trim() for key in start_recording.split('+')]
+
+    stop_recording = args.stop_recording
+    if stop_recording:
+        stop_recording = [key.trim() for key in stop_recording.split('+')]
     first_half_time = args.first_half_ticks / args.ticks_per_second
     run(args.pov_key, first_half_time, args.key_press_frequency, args.start_delay)
 
+def press_multi_key(kb, multi_key: List[str]):
+    for key in multi_key:
+        kb.press(key)
+    for key in multi_key[::-1]:
+        kb.release(key)
 
 def run(
     pov_key: int,
@@ -65,7 +78,7 @@ def run(
         t = time.time()
         kb.press(key)
         kb.release(key)
-        print(f"[1st Half] Pressed key {key} at demo time {t - t0:3.1f}s")
+        print(f"[{t - t0:3.1f}s][1st Half] Pressed key {key}")
         time.sleep(key_press_frequency)
 
     key = str((pov_key + 5) % 10)
@@ -75,7 +88,7 @@ def run(
         kb.press(key)
         kb.release(key)
         print(
-            f"[2nd Half] Pressed key {key} at demo time {t - t0:3.1f}s    (Ctrl+C To Quit)"
+            f"[{t - t0:3.1f}s][2nd Half] Pressed key {key} (Ctrl+C To Quit)"
         )
         time.sleep(key_press_frequency)
 
